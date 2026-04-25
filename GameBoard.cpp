@@ -8,6 +8,11 @@ GameBoard::GameBoard() {
     board.resize(ROWS, vector<char>(COLS, ' '));
 }
 
+GameBoard::GameBoard(const GameBoard& origGameBoard) {
+	board.resize(ROWS, vector<char>(COLS, ' '));
+	board = origGameBoard.board;
+}
+
 // Checks if a move is valid
 bool GameBoard::ValidMove(int col) {
     return col >= 0 && col < COLS && board[0][col] == ' ';
@@ -27,6 +32,10 @@ bool GameBoard::Move(int col, char player) {
         }
     }
     return moveMade;
+}
+
+void GameBoard::PlacePiece(int row, int col, char player) {
+	board[row][col] = player;
 }
 
 // Checks if the specified player has won the game
@@ -66,6 +75,35 @@ bool GameBoard::FullBoard() {
         }
     }
     return isFull;
+}
+
+//Get open spaces left in board
+vector<int> GameBoard::GetValidLocations() {
+	vector<int> validLocations;
+	for (int i = 0 ; i < COLS ; i++) {
+		if (ValidMove(i)) {
+			validLocations.push_back(i);
+		}
+	}
+
+	return validLocations;
+}
+
+//Get specfied space
+char GameBoard::GetSpace(int row, int col) {
+	return board[row][col];
+}
+
+//Get next open row from selected column
+int GameBoard::GetNextOpenRow(int col) {
+    for (int i = 0 ; i < ROWS ; i++) {
+		if (board[i][col] == ' ') {
+			return i;
+		}
+	}
+
+	return -1;
+
 }
 
 // Prints the board

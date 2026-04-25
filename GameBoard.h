@@ -11,11 +11,17 @@ using namespace std;
 class GameBoard {
     public:
         GameBoard();
+        GameBoard(const GameBoard& origGameBoard);
         bool ValidMove(int col);
         bool Move(int col, char player);
         bool CheckWin(char player);
         bool FullBoard();
         void PrintBoard() const;
+        vector<int> GetValidLocations();
+        char GetSpace(int row, int col);
+        int GetNextOpenRow(int col);
+        void PlacePiece(int row, int col, char player);
+
     private:
         vector<vector<char>> board;
         const int ROWS = 6;
