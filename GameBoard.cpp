@@ -96,7 +96,7 @@ char GameBoard::GetSpace(int row, int col) {
 
 //Get next open row from selected column
 int GameBoard::GetNextOpenRow(int col) {
-    for (int i = 0 ; i < ROWS ; i++) {
+    for (int i = ROWS - 1 ; i >= 0 ; i--) {
 		if (board[i][col] == ' ') {
 			return i;
 		}
