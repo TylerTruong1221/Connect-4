@@ -11,9 +11,11 @@ class ConnectFour {
     public:
         ConnectFour(Player* p1, Player* p2);
         void PlayGame();
+        char GetWinner() const;
     private:
         GameBoard board;
         Player* player1;
         Player* player2;
+        char winner;
 };
 #endif
