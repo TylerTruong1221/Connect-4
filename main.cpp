@@ -275,24 +275,63 @@ int main() {
     cout << "Welcome to Connect Four!" << endl;
     cout << "Choose symbol to play (X/O): ";
     cin >> symbol;
+	symbol = toupper(symbol);
 
     while (symbol != 'X' && symbol != 'O') {
         cout << "Invalid symbol. Please choose X or O: ";
         cin >> symbol;
+		symbol = toupper(symbol);
     }
 
-    // Create players and start the game
-    HumanPlayer human(symbol);
-    AIPlayer ai(symbol == 'X' ? 'O' : 'X');
+	int humanScore = 0;
+	int aiScore = 0;
+	int draws = 0;
+	char playAgain = 'Y';
+	
+	while (playAgain == 'Y'){
+    	// Create players and start the game
+    	HumanPlayer human(symbol);
+    	AIPlayer ai(symbol == 'X' ? 'O' : 'X');
 
-    // Player X will always go first
-    if (symbol == 'X') {
-        ConnectFour game(&human, &ai);
-        game.PlayGame();
-    } else {
-        ConnectFour game(&ai, &human);
-        game.PlayGame();
-    }
+    	// Player X will always go first
+    	if (symbol == 'X') {
+        	ConnectFour game(&human, &ai);
+        	game.PlayGame();
+			//add to score after game ends
+			if (game.GetWinner() == human.GetPlayerSymbol()) {
+                humanScore++;
+            } else if (game.GetWinner() == ai.GetPlayerSymbol()) {
+                aiScore++;
+            } else {
+                draws++;
+            }
+    	} else {
+        	ConnectFour game(&ai, &human);
+        	game.PlayGame();
+			iif (game.GetWinner() == human.GetPlayerSymbol()) {
+                humanScore++;
+            } else if (game.GetWinner() == ai.GetPlayerSymbol()) {
+                aiScore++;
+            } else {
+                draws++;
+            }
+    	}
+		//print out scores
+		cout << "\nScore:" << endl;
+        cout << "Player: " << humanScore << endl;
+        cout << "AI: " << aiScore << endl;
+        cout << "Draws: " << draws << endl;
+		//ask player for rematch
+        cout << "\nDo you want to play again? (Y/N): ";
+        cin >> playAgain;
+        playAgain = toupper(playAgain);
+
+        while (playAgain != 'Y' && playAgain != 'N') {
+            cout << "Please enter Y or N: ";
+            cin >> playAgain;
+            playAgain = toupper(playAgain);
+        }
+	}
     
     return 0;
 }
