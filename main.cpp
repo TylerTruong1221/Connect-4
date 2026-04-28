@@ -308,7 +308,7 @@ int main() {
     	} else {
         	ConnectFour game(&ai, &human);
         	game.PlayGame();
-			iif (game.GetWinner() == human.GetPlayerSymbol()) {
+	if (game.GetWinner() == human.GetPlayerSymbol()) {
                 humanScore++;
             } else if (game.GetWinner() == ai.GetPlayerSymbol()) {
                 aiScore++;
